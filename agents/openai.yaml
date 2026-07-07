@@ -1,0 +1,6 @@
+interface:
+  display_name: "小狗儿,蒂娜和小黄来配图"
+  short_description: "为中文文章生成怪诞清爽、有三只宠物主角的正文配图资产"
+  default_prompt: "使用小狗儿,蒂娜和小黄来配图  为这篇中文文章设计并生成几张怪诞正文配图，用小黄、小狗儿、蒂娜随机组合出场，并按需要添加少量短对话。"
+policy:
+  allow_implicit_invocation: true
