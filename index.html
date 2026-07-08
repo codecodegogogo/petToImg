@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>宠物配图 Skill</title>
+  <style>
+    :root {
+      --text: #171717;
+      --muted: #666;
+      --line: #e5e5e5;
+      --bg: #fff;
+      --soft: #f7f7f4;
+      --orange: #df7a21;
+      --red: #c93a2c;
+      --blue: #2f65a7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      width: min(100% - 32px, 1040px);
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+
+    header {
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 2px solid var(--text);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 7vw, 4.2rem);
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+    }
+
+    h3 {
+      margin-top: 24px;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin: 14px 0 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      color: #2f2f2f;
+      font-size: 1.15rem;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .quick-links a {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .quick-links a:hover,
+    .quick-links a:focus-visible {
+      border-color: var(--text);
+      outline: 3px solid rgba(47, 101, 167, 0.18);
+      outline-offset: 2px;
+    }
+
+    .pet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .pet-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .pet-card img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: contain;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .pet-card div {
+      padding: 16px;
+    }
+
+    .pet-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .pet-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.35em;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      background: var(--soft);
+    }
+
+    .box h3 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 18px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--soft);
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+      counter-reset: step;
+    }
+
+    .workflow span {
+      min-height: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      font-weight: 700;
+    }
+
+    .workflow span::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--text);
+      color: #fff;
+      font-size: 0.85rem;
+    }
+
+    pre {
+      margin: 16px 0 0;
+      padding: 18px;
+      overflow-x: auto;
+      border-radius: 8px;
+      background: #151515;
+      color: #f4f4f4;
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .color-notes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-weight: 700;
+    }
+
+    .pill.orange {
+      color: var(--orange);
+      border-color: rgba(223, 122, 33, 0.35);
+    }
+
+    .pill.red {
+      color: var(--red);
+      border-color: rgba(201, 58, 44, 0.35);
+    }
+
+    .pill.blue {
+      color: var(--blue);
+      border-color: rgba(47, 101, 167, 0.35);
+    }
+
+    footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 880px) {
+      .pet-grid,
+      .split,
+      .workflow {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>宠物配图 Skill</h1>
+      <p class="lead">为中文文章生成 Ian 风格的怪诞正文配图：纯白背景、黑色手绘线稿、少量红 / 橙 / 蓝中文批注，并固定使用三只宠物作为视觉主角。</p>
+      <p class="lead">这个 skill 的重点不是生成萌宠海报，也不是画正式 PPT 流程图，而是把文章里的判断、流程、结构、状态或隐喻，转成一张清爽、有点怪、但能快速看懂的正文插图。</p>
+      <nav class="quick-links" aria-label="页面目录">
+        <a href="#pets">固定主角</a>
+        <a href="#rules">样貌一致</a>
+        <a href="#usage">适合做什么</a>
+        <a href="#workflow">工作流</a>
+        <a href="#prompt">提示词</a>
+        <a href="#qa">QA 清单</a>
+      </nav>
+    </header>
+
+    <section id="pets">
+      <h2>固定主角</h2>
+      <p>三只宠物来自本 skill 根目录，图片文件名就是角色名。生成时必须保持宠物样貌和参考图一致，不能只画成“类似的猫狗”。</p>
+
+      <div class="pet-grid">
+        <article class="pet-card">
+          <img src="./小黄.png" width="1536" height="1024" alt="小黄参考图">
+          <div>
+            <h3>小黄</h3>
+            <p>浅黄大狗，修长体型，直立大耳，上卷尾巴。适合探路、拉路径、守门、发现断点。</p>
+          </div>
+        </article>
+
+        <article class="pet-card">
+          <img src="./小狗儿.png" width="1536" height="1024" alt="小狗儿参考图">
+          <div>
+            <h3>小狗儿</h3>
+            <p>橙黄小狗，白胸白爪，一耳立一耳半垂。适合试探、卡住、提问、钻入口。</p>
+          </div>
+        </article>
+
+        <article class="pet-card">
+          <img src="./蒂娜.png" width="1536" height="1024" alt="蒂娜参考图">
+          <div>
+            <h3>蒂娜</h3>
+            <p>黑猫，黄眼睛，尖耳朵，细长身体。适合观察、判断、按开关、校验。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="rules">
+      <h2>样貌一致硬规则</h2>
+      <p>使用 Ian / ifan 风格时，三张 PNG 是权威参考，不是灵感图。</p>
+      <ul>
+        <li>生成前查看或读取 <code>小黄.png</code>、<code>小狗儿.png</code>、<code>蒂娜.png</code>。</li>
+        <li>保持物种、体型、毛色、耳朵、尾巴、脸型、眼睛和典型姿态。</li>
+        <li>只做 Ian 风格线稿转译，不改成通用萌宠、贴纸、毛绒玩具、儿童卡通或新角色。</li>
+        <li>如果生图工具不能把参考图作为视觉输入，只能说明是草稿，不能声称“样貌严格一致”。</li>
+      </ul>
+      <p>提示词里必须明确包含：</p>
+      <pre><code>match the provided reference images closely
+preserve identity from the reference PNGs
+do not invent a generic pet</code></pre>
+    </section>
+
+    <section id="usage">
+      <h2>适合做什么</h2>
+      <div class="split">
+        <div class="box">
+          <h3>适合用于</h3>
+          <ul>
+            <li>中文文章正文配图</li>
+            <li>博客 / Notion / 长文插图</li>
+            <li>方法论、流程、结构、状态、隐喻图</li>
+            <li>技术概念解释图，例如 TCP/IP、DNS、缓存、队列、工作流</li>
+            <li>“哪里应该配图”的 shot list 策略</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>不适合用于</h3>
+          <ul>
+            <li>宠物写真</li>
+            <li>萌宠头像</li>
+            <li>商业插画</li>
+            <li>PPT 信息图</li>
+            <li>正式系统架构图</li>
+            <li>复杂 UI 截图复刻</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <h2>工作流</h2>
+      <div class="workflow" aria-label="配图工作流">
+        <span>读取正文</span>
+        <span>提炼认知锚点</span>
+        <span>选择宠物组合</span>
+        <span>设计怪诞隐喻</span>
+        <span>生成 16:9 配图</span>
+        <span>检查样貌和 QA</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>宠物组合规则</h2>
+      <p>每张图从三只宠物中选择 1-3 只出场。随机组合要服从表达，不要为了随机而牺牲结构清晰度。</p>
+      <table>
+        <thead>
+          <tr>
+            <th>组合</th>
+            <th>适合场景</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>单只</td>
+            <td>一个明确动作、一个判断、一个状态。</td>
+          </tr>
+          <tr>
+            <td>双只</td>
+            <td>对比、协作、拉扯、输入输出、角色分工。</td>
+          </tr>
+          <tr>
+            <td>三只</td>
+            <td>系统分流、闭环、多阶段、共同搬运一个抽象物。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ul>
+        <li><code>小黄</code>：推进、开路、寻找断点、承接路径。</li>
+        <li><code>小狗儿</code>：试错、卡住、提问、误入入口。</li>
+        <li><code>蒂娜</code>：判断、审核、观察、按住关键点。</li>
+        <li><code>小黄 + 小狗儿</code>：执行与试探。</li>
+        <li><code>小黄 + 蒂娜</code>：推进与审核。</li>
+        <li><code>小狗儿 + 蒂娜</code>：疑问与纠偏。</li>
+        <li><code>小黄 + 小狗儿 + 蒂娜</code>：分流、闭环、多阶段协作。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>对话规则</h2>
+      <p>可以加少量短对话，但不能变成剧情漫画。</p>
+      <ul>
+        <li>每张图最多 1-3 个气泡。</li>
+        <li>每个气泡 2-8 个中文字符。</li>
+        <li>对话要服务当前结构表达。</li>
+        <li>小黄负责推进，小狗儿负责试探，蒂娜负责判断。</li>
+      </ul>
+      <pre><code>小黄：“走这边”
+小狗儿：“我试试”
+蒂娜：“先校验”</code></pre>
+    </section>
+
+    <section>
+      <h2>使用示例</h2>
+      <h3>生成一张技术解释图</h3>
+      <pre><code>Use $ian-pet-illustrations 为“A 发送一条消息到 B 接收一条消息”的过程画一张 Ian 宠物风格正文配图，要求详细 TCP/IP。必须保持小黄、小狗儿、蒂娜的样貌和参考图片一致。</code></pre>
+
+      <h3>为文章做配图策略</h3>
+      <pre><code>Use $ian-pet-illustrations 分析这篇文章适合在哪些段落后配图，给我 4-6 张 shot list，不要先生成图片。</code></pre>
+
+      <h3>指定宠物组合</h3>
+      <pre><code>Use $ian-pet-illustrations 画一张“缓存击穿”的正文配图，只用小狗儿和蒂娜。小狗儿负责试探入口，蒂娜负责按住校验开关。</code></pre>
+    </section>
+
+    <section id="prompt">
+      <h2>生成提示词骨架</h2>
+      <pre><code>Generate one standalone 16:9 horizontal Chinese article illustration.
+
+Visual DNA:
+Pure white background. Minimalist black hand-drawn line art. Slightly wobbly pen lines. Lots of empty white space. Sparse red/orange/blue handwritten Chinese annotations.
+
+Pet identity requirement:
+Use the provided reference PNGs for 小黄, 小狗儿, 蒂娜. Match the provided reference images closely. Preserve identity from the reference PNGs. Do not invent a generic pet.
+
+Selected pet combination:
+{小黄 / 小狗儿 / 蒂娜 / 小黄+小狗儿 / 小黄+蒂娜 / 小狗儿+蒂娜 / 小黄+小狗儿+蒂娜}
+
+Core idea:
+{这张图要表达的核心意思}
+
+Composition:
+{宠物在哪里、正在做什么、主要物件是什么、信息如何流动}
+
+Chinese labels:
+{短标注 1} / {短标注 2} / {短标注 3}
+
+Dialogue bubbles if useful:
+{宠物名：“短句”；没有必要就 none}</code></pre>
+    </section>
+
+    <section id="qa">
+      <h2>QA 清单</h2>
+      <ul>
+        <li>是 16:9 横版。</li>
+        <li>背景是干净白底。</li>
+        <li>宠物承担核心动作，不只是装饰。</li>
+        <li>宠物样貌贴近根目录 PNG。</li>
+        <li>没有变成通用猫狗、贴纸、毛绒玩具或萌宠海报。</li>
+        <li>中文标注少、短、能读。</li>
+        <li>对话气泡不超过 1-3 个。</li>
+        <li>没有左上角标题、正式流程图味、PPT 味。</li>
+        <li>一张图只讲一个核心结构。</li>
+      </ul>
+      <div class="color-notes" aria-label="颜色规则">
+        <span class="pill">黑色：线稿和主体文字</span>
+        <span class="pill orange">橙色：流程和箭头</span>
+        <span class="pill red">红色：问题和提醒</span>
+        <span class="pill blue">蓝色：补充和状态</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>文件结构</h2>
+      <pre><code>Images of cats and dogs/
+├── SKILL.md
+├── README.md
+├── pet-roster.md
+├── 小黄.png
+├── 小狗儿.png
+├── 蒂娜.png
+├── agents/
+│   └── openai.yaml
+└── references/
+    ├── composition-patterns.md
+    ├── pet-protagonists.md
+    ├── pet-roster.md
+    ├── prompt-template.md
+    ├── qa-checklist.md
+    └── style-dna.md</code></pre>
+    </section>
+
+    <section>
+      <h2>维护建议</h2>
+      <ol>
+        <li>保持图片文件名就是角色名。</li>
+        <li>更新根目录 <code>pet-roster.md</code>。</li>
+        <li>同步更新 <code>references/pet-roster.md</code>。</li>
+        <li>检查 <code>SKILL.md</code> 中的固定角色名和参考图路径。</li>
+        <li>重新测试一次“样貌一致硬规则”。</li>
+      </ol>
+    </section>
+
+    <footer>
+      <p>本页由 <code>README.md</code> 转成静态 HTML，并做了轻量排版。可直接在浏览器打开。</p>
+    </footer>
+  </main>
+</body>
+</html>
