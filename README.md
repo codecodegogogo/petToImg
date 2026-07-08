@@ -106,19 +106,19 @@ flowchart LR
 ### 生成一张技术解释图
 
 ```text
-Use $ian-xiaohei-illustrations 为“A 发送一条消息到 B 接收一条消息”的过程画一张 Ian 宠物风格正文配图，要求详细 TCP/IP。必须保持小黄、小狗儿、蒂娜的样貌和参考图片一致。
+Use $ian-pet-illustrations 为“A 发送一条消息到 B 接收一条消息”的过程画一张 Ian 宠物风格正文配图，要求详细 TCP/IP。必须保持小黄、小狗儿、蒂娜的样貌和参考图片一致。
 ```
 
 ### 为文章做配图策略
 
 ```text
-Use $ian-xiaohei-illustrations 分析这篇文章适合在哪些段落后配图，给我 4-6 张 shot list，不要先生成图片。
+Use $ian-pet-illustrations 分析这篇文章适合在哪些段落后配图，给我 4-6 张 shot list，不要先生成图片。
 ```
 
 ### 指定宠物组合
 
 ```text
-Use $ian-xiaohei-illustrations 画一张“缓存击穿”的正文配图，只用小狗儿和蒂娜。小狗儿负责试探入口，蒂娜负责按住校验开关。
+Use $ian-pet-illustrations 画一张“缓存击穿”的正文配图，只用小狗儿和蒂娜。小狗儿负责试探入口，蒂娜负责按住校验开关。
 ```
 
 ## 生成提示词骨架
